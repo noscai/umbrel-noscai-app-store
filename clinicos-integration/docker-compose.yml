@@ -1,0 +1,65 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: clinicos-integration_web_1
+      APP_PORT: 3080
+      PROXY_AUTH_ADD: "false"
+
+  web:
+    image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/dicom-connector:1.0.1
+    user: "1000:1000"
+    restart: on-failure
+    stop_grace_period: 30s
+    ports:
+      # DICOM ports exposed on LAN only (not routed through app_proxy)
+      - "11112:11112" # Modality Worklist (C-FIND)
+      - "11113:11113" # DICOM Listener (C-STORE/C-ECHO)
+    volumes:
+      - ${APP_DATA_DIR}/data/dicom:/app/data
+      - ${APP_DATA_DIR}/data/logs:/app/logs
+      - ${APP_DATA_DIR}/data/db:/app/db
+      - ${APP_DATA_DIR}/data/certificates:/app/certificates
+      - ${APP_DATA_DIR}/data/config:/app/config
+    environment:
+      # Config file override — NoscAI team drops .env here via SSH
+      DOTENV_PATH: "/app/config/.env"
+
+      # DICOM Listener
+      LISTEN_PORT: "11113"
+      LISTEN_IP: "0.0.0.0"
+      AE_TITLE: "${APP_DICOM_AE_TITLE:-CLINICOS}"
+      OUTPUT_DIR: "/app/data"
+      ULTRASOUND_MULTIFRAME_IMAGE_STORAGE_UID: "1.2.840.10008.5.1.4.1.1.3.1"
+
+      # File Monitor / API
+      API_BASE_URL: "${APP_DICOM_API_BASE_URL:-https://placeholder}"
+      API_TOKEN: "${APP_DICOM_API_TOKEN:-placeholder}"
+      PROVIDER_ID: "${APP_DICOM_PROVIDER_ID:-DICOM}"
+
+      # Modality Worklist
+      MWL_SERVER_PORT: "11112"
+      WORKLIST_DATE_FORMAT: "ISO"
+
+      # Logging
+      LOG_DIR: "/app/logs"
+      LOG_LEVEL: "${APP_DICOM_LOG_LEVEL:-INFO}"
+
+      # Database
+      DB_PATH: "/app/db/submit_protocol.db"
+
+      # Status server
+      STATUS_PORT: "3080"
+
+      # TLS (disabled by default)
+      SSL_ENABLED: "${APP_DICOM_SSL_ENABLED:-false}"
+      MUTUAL_AUTHENTICATION: "${APP_DICOM_MUTUAL_AUTH:-false}"
+      CERT_DIR: "/app/certificates"
+      SERVER_CERT: "server.crt"
+      SERVER_KEY: "server.key"
+      CLIENT_CERT: "ca_bundle.crt"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true

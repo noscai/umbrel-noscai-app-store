@@ -1,0 +1,33 @@
+manifestVersion: 1
+id: clinicos-integration
+category: automation
+name: ClinicOS
+version: "1.0.1"
+tagline: Bridge medical practice with ClinicOS
+icon: https://assets.clinicos.de/images/clinicos-icon.svg
+description: >-
+  ClinicOS bridges your medical practice with ClinicOS. It receives DICOM images from
+  modalities, extracts embedded PDFs and images, and securely uploads them
+  to your ClinicOS cloud workspace.
+
+  Features:
+  - DICOM Listener (C-STORE / C-ECHO) for receiving images from imaging devices
+  - Modality Worklist (MWL) server so devices can query patient and order information
+  - Automatic extraction of PDFs, images, and structured reports from DICOM files
+  - Smart thumbnail generation for multi-frame imaging sequences
+  - TLS encryption support with optional mutual authentication
+  - Automatic retry and submission tracking via local database
+
+  Note: After installation the NoscAI team will configure the app remotely.
+  Clinics do not need to touch any configuration.
+releaseNotes: "Initial release."
+developer: NoscAI
+website: https://clinicos.de
+dependencies: []
+repo: https://github.com/noscai/dicom-connector
+support: https://github.com/noscai/dicom-connector/issues
+port: 3080
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
