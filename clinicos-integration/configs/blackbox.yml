@@ -1,0 +1,24 @@
+modules:
+  http_2xx:
+    prober: http
+    http:
+      method: GET
+      preferred_ip_protocol: "ip4"
+
+  https_2xx:
+    prober: http
+    http:
+      method: GET
+      tls_config:
+        insecure_skip_verify: false
+      preferred_ip_protocol: "ip4"
+
+  tcp_connect:
+    prober: tcp
+    tcp:
+      preferred_ip_protocol: "ip4"
+
+  icmp:
+    prober: icmp
+    icmp:
+      preferred_ip_protocol: "ip4"

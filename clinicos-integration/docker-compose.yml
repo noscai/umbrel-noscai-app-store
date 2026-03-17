@@ -12,6 +12,8 @@ services:
     user: "1000:1000"
     restart: on-failure
     stop_grace_period: 30s
+    env_file:
+      - ${APP_DATA_DIR}/data/config/.env
     ports:
       - "11112:11112"
       - "11113:11113"
@@ -20,17 +22,12 @@ services:
       - ${APP_DATA_DIR}/data/logs:/app/logs
       - ${APP_DATA_DIR}/data/db:/app/db
       - ${APP_DATA_DIR}/data/certificates:/app/certificates
-      - ${APP_DATA_DIR}/data/config:/app/config
     environment:
-      DOTENV_PATH: "/app/config/.env"
       LISTEN_PORT: "11113"
       LISTEN_IP: "0.0.0.0"
       AE_TITLE: "${APP_DICOM_AE_TITLE:-CLINICOS}"
       OUTPUT_DIR: "/app/data"
       ULTRASOUND_MULTIFRAME_IMAGE_STORAGE_UID: "1.2.840.10008.5.1.4.1.1.3.1"
-      API_BASE_URL: "${APP_DICOM_API_BASE_URL:-https://placeholder}"
-      API_TOKEN: "${APP_DICOM_API_TOKEN:-placeholder}"
-      PROVIDER_ID: "${APP_DICOM_PROVIDER_ID:-DICOM}"
       MWL_SERVER_PORT: "11112"
       WORKLIST_DATE_FORMAT: "ISO"
       LOG_DIR: "/app/logs"
@@ -47,3 +44,90 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+
+  # ── Monitoring ──────────────────────────────────────────────────────
+
+  netbird:
+    image: netbirdio/netbird:latest
+    network_mode: host
+    env_file:
+      - ${APP_DATA_DIR}/data/config/.env
+    environment:
+      NB_MANAGEMENT_URL: "https://vpn.nosc.ai"
+    volumes:
+      - netbird_data:/etc/netbird
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:v1.9.1
+    command:
+      - '--web.listen-address=:9100'
+      - '--path.rootfs=/host'
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^(?:/(dev|proc|sys|var/lib/docker/.+|var/lib/containers/.+|var/lib/kubelet/.+|run/docker/.+|run/containerd/.+|run/user|host))(?:$|/)'
+      - '--collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|nsfs|overlay|proc|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$'
+    volumes:
+      - '/:/host:ro'
+    read_only: true
+    tmpfs: ["/tmp"]
+    user: "65534:65534"
+    security_opt: ['no-new-privileges:true']
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:9100/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  blackbox-exporter:
+    image: quay.io/prometheus/blackbox-exporter:v0.26.0
+    volumes:
+      - "${APP_DIR}/configs/blackbox.yml:/etc/blackbox_exporter/config.yml:ro"
+    read_only: true
+    tmpfs: ["/tmp"]
+    user: "65534:65534"
+    cap_drop: ["ALL"]
+    cap_add: ["NET_RAW"]
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:9115/status"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  vmagent:
+    image: victoriametrics/vmagent:v1.108.1
+    env_file:
+      - ${APP_DATA_DIR}/data/config/.env
+    volumes:
+      - "${APP_DIR}/configs/vmagent.yml:/etc/vmagent/config.yml:ro"
+      - vmagent_data:/vmagentdata
+    command:
+      - '-promscrape.config=/etc/vmagent/config.yml'
+      - '-remoteWrite.url=https://victoriametrics.dev.clinicos.dev/api/v1/write'
+      - '-remoteWrite.label=tenant=${APP_TENANT_LABEL:-unknown}'
+    restart: unless-stopped
+    depends_on:
+      - node-exporter
+      - blackbox-exporter
+      - web
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8429/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  netbird_data:
+    driver: local
+  vmagent_data:
+    driver: local
