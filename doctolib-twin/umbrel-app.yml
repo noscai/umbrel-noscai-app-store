@@ -1,0 +1,31 @@
+manifestVersion: 1
+id: doctolib-twin
+category: automation
+name: ClinicOS Doctolib Sync
+version: "0.1.0"
+tagline: Bidirectional appointment sync between Doctolib and ClinicOS
+icon: https://assets.clinicos.de/images/clinicos-icon.svg
+description: >-
+  ClinicOS Doctolib Sync runs on your Umbrel device and keeps appointments
+  in sync between Doctolib and your ClinicOS workspace — automatically,
+  in both directions.
+
+  Features:
+  - Reads new and updated appointments from Doctolib and creates them in ClinicOS
+  - Writes appointments created in ClinicOS back to Doctolib
+  - Credentials managed securely in ClinicOS — no file editing required
+  - Real-time status visible from the Umbrel dashboard
+
+  Note: Requires ClinicOS with Doctolib integration enabled. The NoscAI
+  team will provide your TWIN_TOKEN after enabling the integration.
+releaseNotes: "Initial release."
+developer: NoscAI
+website: https://clinicos.de
+dependencies: []
+repo: https://github.com/noscai/doctolib-twin
+support: https://github.com/noscai/doctolib-twin/issues
+port: 3080
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

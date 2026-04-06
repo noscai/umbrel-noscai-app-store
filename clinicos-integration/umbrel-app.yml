@@ -1,7 +1,7 @@
 manifestVersion: 1
 id: clinicos-integration
 category: automation
-name: ClinicOS
+name: ClinicOS DICOM Integration
 version: "1.0.2"
 tagline: Bridge medical practice with ClinicOS
 icon: https://assets.clinicos.de/images/clinicos-icon.svg
@@ -20,7 +20,7 @@ description: >-
 
   Note: After installation the NoscAI team will configure the app remotely.
   Clinics do not need to touch any configuration.
-releaseNotes: "Initial release."
+releaseNotes: "Renamed display name to ClinicOS DICOM Integration. No image change."
 developer: NoscAI
 website: https://clinicos.de
 dependencies: []
