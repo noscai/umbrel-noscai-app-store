@@ -11,8 +11,8 @@ services:
     image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/doctolib-twin:0.1.0
     restart: unless-stopped
     stop_grace_period: 30s
-    ports:
-      - "3080:3080"
+    expose:
+      - "3080"
     volumes:
       - ${APP_DATA_DIR}/data:/app/data
       - ${APP_DATA_DIR}/session:/app/.session
