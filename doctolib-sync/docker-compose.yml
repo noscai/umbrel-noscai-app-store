@@ -17,7 +17,6 @@ services:
       - ${APP_DATA_DIR}/data:/app/data
       - ${APP_DATA_DIR}/session:/app/.session
     environment:
-      CLINICOS_API_URL: "${APP_CLINICOS_API_URL}"
       TWIN_TOKEN: "${APP_TWIN_TOKEN}"
       DOCTOLIB_HEADLESS: "true"
       DOCTOLIB_OUTPUT_DIR: "/app/data"

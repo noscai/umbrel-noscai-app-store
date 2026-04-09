@@ -16,8 +16,9 @@ description: >-
   - Credentials managed securely in ClinicOS — no file editing required
   - Real-time status visible from the Umbrel dashboard
 
-  Note: Requires ClinicOS with Doctolib integration enabled. The NoscAI
-  team will provide your TWIN_TOKEN after enabling the integration.
+  Setup: Enable Doctolib integration in ClinicOS, copy the TWIN_TOKEN
+  shown in the setup dialog, and paste it here. That's it — no other
+  configuration required.
 releaseNotes: "Initial release."
 developer: NoscAI
 website: https://clinicos.de
