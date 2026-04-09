@@ -3,7 +3,7 @@ version: "3.7"
 services:
   app_proxy:
     environment:
-      APP_HOST: doctolib-twin_web_1
+      APP_HOST: doctolib-sync_web_1
       APP_PORT: 3080
       PROXY_AUTH_ADD: "false"
 

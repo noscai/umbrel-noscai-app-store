@@ -1,5 +1,5 @@
 manifestVersion: 1
-id: doctolib-twin
+id: doctolib-sync
 category: automation
 name: ClinicOS Doctolib Sync
 version: "0.1.0"
