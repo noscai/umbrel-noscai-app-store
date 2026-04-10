@@ -7,6 +7,7 @@ services:
 
   web:
     image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/doctolib-twin:latest
+    pull_policy: always
     restart: unless-stopped
     stop_grace_period: 30s
     expose:
