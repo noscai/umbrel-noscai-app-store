@@ -2,7 +2,7 @@ manifestVersion: 1
 id: clinicos-doctolib-sync
 category: automation
 name: ClinicOS Doctolib Sync
-version: "0.1.0"
+version: "0.2.0"
 tagline: Bidirectional appointment sync between Doctolib and ClinicOS
 icon: https://assets.clinicos.de/images/clinicos-icon.svg
 description: >-
@@ -19,7 +19,7 @@ description: >-
   Setup: Enable Doctolib integration in ClinicOS, copy the TWIN_TOKEN
   shown in the setup dialog, and paste it here. That's it — no other
   configuration required.
-releaseNotes: "Initial release."
+releaseNotes: "Auto-released from doctolib-twin v0.2.0."
 developer: NoscAI
 website: https://clinicos.de
 dependencies: []
