@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   app_proxy:
     environment:
@@ -20,7 +18,5 @@ services:
       TWIN_TOKEN: "${APP_TWIN_TOKEN}"
       DOCTOLIB_HEADLESS: "true"
       DOCTOLIB_OUTPUT_DIR: "/app/data"
-    cap_drop:
-      - ALL
     security_opt:
-      - no-new-privileges:true
+      - no-new-privileges=true
