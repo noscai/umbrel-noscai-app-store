@@ -6,7 +6,7 @@ services:
       PROXY_AUTH_ADD: "false"
 
   web:
-    image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/doctolib-twin:0.3.12
+    image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/doctolib-twin:0.3.13
     restart: unless-stopped
     stop_grace_period: 30s
     expose:
