@@ -18,9 +18,10 @@ description: >-
   - TLS encryption support with optional mutual authentication
   - Automatic retry and submission tracking via local database
 
-  Note: After installation the NoscAI team will configure the app remotely.
-  Clinics do not need to touch any configuration.
-releaseNotes: "Renamed display name to ClinicOS DICOM Integration. No image change."
+  After installation, open the app to walk through the first-run setup wizard:
+  enter your ClinicOS workspace URL, API token, and tenant ID, then save. The
+  app turns itself into a read-only status dashboard once configured.
+releaseNotes: "Adds a built-in first-run setup wizard and status dashboard at the app's web UI."
 developer: NoscAI
 website: https://clinicos.de
 dependencies: []
