@@ -10,7 +10,9 @@ services:
   web:
     image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/dicom-connector:1.0.2
     user: "1000:1000"
-    restart: on-failure
+    # Use 'always' so the container comes back after the setup wizard exits
+    # cleanly post-save (sys.exit(0) — see Control Plane in dicom-connector README).
+    restart: always
     stop_grace_period: 30s
     ports:
       - "11112:11112"
