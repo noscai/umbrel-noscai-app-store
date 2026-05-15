@@ -3,7 +3,11 @@ services:
     environment:
       APP_HOST: clinicos-doctolib-sync_web_1
       APP_PORT: 3081
-      PROXY_AUTH_ADD: "false"
+      # Require an Umbrel session cookie on every request to port 3081 so
+      # only operators who've already authenticated against the umbrel
+      # itself can hit the doctolib-twin status surface. Defaults to "true"
+      # when unset; explicit so a future drive-by edit can't disable it.
+      PROXY_AUTH_ADD: "true"
 
   web:
     image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/doctolib-twin:0.3.13
