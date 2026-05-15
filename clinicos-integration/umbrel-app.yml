@@ -18,9 +18,11 @@ description: >-
   - TLS encryption support with optional mutual authentication
   - Automatic retry and submission tracking via local database
 
-  After installation, open the app to walk through the first-run setup wizard:
-  enter your ClinicOS workspace URL, API token, and tenant ID, then save. The
-  app turns itself into a read-only status dashboard once configured.
+  Setup: in ClinicOS Admin, go to Setup → Devices → DICOM Connector and
+  click "Generate token". Paste the token below before installing (or open
+  the app after install and paste it into the wizard). The connector
+  configures itself from the token and turns into a read-only status
+  dashboard once running. No URL, tenant, or API key entry required.
 releaseNotes: "Auto-released from dicom-connector v1.0.7."
 developer: NoscAI
 website: https://clinicos.de
