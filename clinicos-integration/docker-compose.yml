@@ -25,6 +25,13 @@ services:
       - ${APP_DATA_DIR}/data/config:/app/config
     environment:
       DOTENV_PATH: "/app/config/.env"
+      # Preferred path: operator generates a DICOM_TOKEN in ClinicOS Admin
+      # (Setup → Devices → DICOM Connector → Generate token), pastes it
+      # here, and the connector decodes the JWT for URL + tenant and
+      # fetches API_TOKEN from the backend on startup. Legacy manual
+      # vars below remain as a fallback for air-gapped installs and
+      # existing deployments — token wins when both are set.
+      DICOM_TOKEN: "${APP_DICOM_TOKEN:-}"
       LISTEN_PORT: "11113"
       LISTEN_IP: "0.0.0.0"
       AE_TITLE: "${APP_DICOM_AE_TITLE:-CLINICOS}"
