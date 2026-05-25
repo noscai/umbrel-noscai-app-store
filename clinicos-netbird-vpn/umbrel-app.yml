@@ -2,7 +2,7 @@ manifestVersion: 1
 id: clinicos-netbird-vpn
 category: networking
 name: ClinicOS VPN Tunnel
-version: "0.1.0"
+version: "0.1.1"
 tagline: Secure tunnel from this device to the ClinicOS cloud
 icon: https://assets.clinicos.de/images/clinicos-icon.svg
 description: >-
