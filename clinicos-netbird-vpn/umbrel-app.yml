@@ -1,0 +1,30 @@
+manifestVersion: 1
+id: clinicos-netbird-vpn
+category: networking
+name: ClinicOS VPN Tunnel
+version: "0.1.0"
+tagline: Secure tunnel from this device to the ClinicOS cloud
+icon: https://assets.clinicos.de/images/clinicos-icon.svg
+description: >-
+  ClinicOS VPN Tunnel joins this device to the ClinicOS private network
+  over an encrypted WireGuard tunnel (powered by NetBird), making it
+  reachable from the cloud backend without any port-forwarding or
+  public DNS at the clinic.
+
+  Required by all on-site ClinicOS apps that talk to the cloud over a
+  direct connection — Doctolib Sync, easyTI Sync, DICOM Integration, and
+  the device bridges.
+
+  Setup: open the app and paste the setup token issued in
+  ClinicOS Admin → Devices → VPN. The tunnel comes up in 5–10 seconds.
+releaseNotes: "Initial release: NetBird 0.30.2 + ClinicOS setup-token (nbct1) support."
+developer: NoscAI
+website: https://clinicos.de
+dependencies: []
+repo: https://github.com/noscai/clinicos-edge
+support: https://github.com/noscai/clinicos-edge/issues
+port: 3082
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

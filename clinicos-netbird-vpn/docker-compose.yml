@@ -1,0 +1,50 @@
+services:
+  app_proxy:
+    environment:
+      APP_HOST: clinicos-netbird-vpn_web_1
+      APP_PORT: 3082
+      PROXY_AUTH_ADD: "false"
+
+  web:
+    image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/vpn-agent:0.1.0
+    restart: unless-stopped
+    stop_grace_period: 10s
+    expose:
+      - "3082"
+    volumes:
+      # Read/write — the agent drives the netbird CLI via the host docker socket.
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      NETBIRD_CONTAINER: netbird-clinicos-vpn
+      NB_MANAGEMENT_URL: https://vpn.nosc.ai
+      # Fallback hostname for the raw-key path. Setup-tokens override this
+      # with a cloud-assigned name.
+      PEER_HOSTNAME: ${APP_PEER_HOSTNAME:-clinicos-edge}
+    security_opt:
+      - no-new-privileges=true
+    depends_on:
+      - netbird
+
+  netbird:
+    image: netbirdio/netbird:0.30.2
+    container_name: netbird-clinicos-vpn
+    restart: unless-stopped
+    stop_grace_period: 10s
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE
+    devices:
+      # Required for userspace mode and when the kernel module is unavailable.
+      - /dev/net/tun
+    volumes:
+      # NetBird caches its rotated session credentials here after the first
+      # `netbird up`. Persisting this volume means we re-connect automatically
+      # across container restarts and Umbrel reboots.
+      - ${APP_DATA_DIR}/netbird:/var/lib/netbird
+    environment:
+      NB_MANAGEMENT_URL: https://vpn.nosc.ai
+      # Intentionally NO NB_SETUP_KEY here. The daemon starts unregistered;
+      # the vpn-agent injects the key by running `netbird up` once the
+      # customer-success team pastes the setup token in the web UI.
