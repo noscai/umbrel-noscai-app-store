@@ -52,15 +52,15 @@ Your tunnel registration is preserved across updates — `/var/lib/netbird` surv
 | Status | Meaning | Action |
 |--------|---------|--------|
 | Waiting for setup key | No registration yet | Open the app and paste the setup token |
-| Management only | Reached the management server but no peer link | Likely a firewall is blocking UDP 51820 outbound — open it |
+| Management only | Reached the management server but no peer link | The firewall is probably blocking outbound UDP — ask the network admin to allow outbound UDP (STUN + WireGuard need it) |
 | Tunnel down | Was connected, now unreachable | Check the device's internet connection; the agent retries automatically |
 | Tunnel up | Everything is working | Nothing to do |
 
-## Dependencies
+## Network requirements
 
-- Outbound TCP 443 to `vpn.nosc.ai` (management + signal)
-- Outbound UDP 51820 to NetBird relay servers (encrypted WireGuard)
-- `/dev/net/tun` available on the host
+- **Outbound TCP 443** to `vpn.nosc.ai` — management, signaling, and the relay fallback when direct peer-to-peer isn't possible
+- **Outbound UDP** for NAT traversal (STUN, default `stun.wiretrustee.com:3478`) and for the direct WireGuard tunnel. Local listen port and remote peer ports are negotiated at runtime — not a single fixed port. Most clinic firewalls allow outbound UDP by default; restrictive firewalls need a generic outbound-UDP allow rule.
+- **`/dev/net/tun`** available on the host (standard on Umbrel and other Linux devices)
 
 ## Reconfigure
 
