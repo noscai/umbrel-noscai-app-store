@@ -6,7 +6,7 @@ services:
       PROXY_AUTH_ADD: "false"
 
   web:
-    image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/vpn-agent:0.1.1
+    image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/vpn-agent:0.2.1
     restart: unless-stopped
     stop_grace_period: 10s
     expose:
@@ -26,7 +26,7 @@ services:
       - netbird
 
   netbird:
-    image: netbirdio/netbird:0.30.2
+    image: netbirdio/netbird:0.71.4
     container_name: netbird-clinicos-vpn
     restart: unless-stopped
     stop_grace_period: 10s
