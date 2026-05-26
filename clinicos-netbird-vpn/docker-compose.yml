@@ -31,6 +31,20 @@ services:
     restart: unless-stopped
     stop_grace_period: 10s
     network_mode: host
+    # Run ONLY the daemon. The stock image entrypoint (netbird-entrypoint.sh)
+    # starts the daemon and then runs a bare `netbird up` at boot. Because we
+    # intentionally ship no NB_SETUP_KEY, that `up` fails, and under the
+    # entrypoint's `set -e` the whole script aborts — its EXIT trap kills the
+    # daemon and the container crash-loops. The /var/run/netbird.sock socket
+    # then never persists, so the vpn-agent's `docker exec ... netbird up`
+    # can't reach the daemon ("dial unix /var/run/netbird.sock: no such file")
+    # and gets SIGKILLed (exit 137) when the container restarts.
+    #
+    # Bypassing the entrypoint to run `netbird service run` keeps the daemon up
+    # persistently; the vpn-agent registers the peer over the socket once the
+    # setup token is pasted in the UI.
+    entrypoint: ["netbird"]
+    command: ["service", "run"]
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN
@@ -45,6 +59,9 @@ services:
       - ${APP_DATA_DIR}/netbird:/var/lib/netbird
     environment:
       NB_MANAGEMENT_URL: https://vpn.nosc.ai
+      # Log to stdout so `docker logs netbird-clinicos-vpn` works (we bypass
+      # the stock entrypoint, which would otherwise set this).
+      NB_LOG_FILE: console
       # Intentionally NO NB_SETUP_KEY here. The daemon starts unregistered;
       # the vpn-agent injects the key by running `netbird up` once the
       # customer-success team pastes the setup token in the web UI.

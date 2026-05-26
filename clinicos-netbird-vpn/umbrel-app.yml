@@ -2,7 +2,7 @@ manifestVersion: 1
 id: clinicos-netbird-vpn
 category: networking
 name: ClinicOS VPN Tunnel
-version: "0.2.1"
+version: "0.2.2"
 tagline: Secure tunnel from this device to the ClinicOS cloud
 icon: https://assets.clinicos.de/images/clinicos-icon.svg
 description: >-
@@ -17,7 +17,7 @@ description: >-
 
   Setup: open the app and paste the setup token issued in
   ClinicOS Admin → Devices → VPN. The tunnel comes up in 5–10 seconds.
-releaseNotes: "Upgrade NetBird to 0.71.4 (status dashboard updated for the new client schema). Adds an editable device-name suffix so each install registers under a distinct hostname; setup no longer hangs if the first connection is slow."
+releaseNotes: "Fix tunnel registration failing to connect: the NetBird daemon now runs persistently instead of crash-looping at boot, so pasting the setup token reliably brings the tunnel up."
 developer: NoscAI
 website: https://clinicos.de
 dependencies: []
