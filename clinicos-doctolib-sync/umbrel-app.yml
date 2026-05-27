@@ -2,7 +2,7 @@ manifestVersion: 1
 id: clinicos-doctolib-sync
 category: automation
 name: ClinicOS Doctolib Sync
-version: "0.3.18"
+version: "0.4.0"
 tagline: Bidirectional appointment sync between Doctolib and ClinicOS
 icon: https://assets.clinicos.de/images/clinicos-icon.svg
 description: >-
