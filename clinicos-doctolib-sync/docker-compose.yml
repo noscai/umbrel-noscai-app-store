@@ -3,7 +3,13 @@ services:
     environment:
       APP_HOST: clinicos-doctolib-sync_web_1
       APP_PORT: 3081
-      PROXY_AUTH_ADD: "false"
+      # Require Umbrel login to reach the settings UI and config endpoints
+      # (/, /api/status, /api/effective-config, /api/token, /api/overrides).
+      PROXY_AUTH_ADD: "true"
+      # The Bridge reaches the Twin over NetBird through this same proxy, so its
+      # machine endpoints must bypass interactive Umbrel login. They stay
+      # protected by the per-tenant TWIN_API_KEY bearer check inside the app.
+      PROXY_AUTH_WHITELIST: "/api/commands/*,/api/discover"
 
   web:
     image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/doctolib-twin:0.7.0
