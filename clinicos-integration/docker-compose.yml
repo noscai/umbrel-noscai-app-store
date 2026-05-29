@@ -5,7 +5,13 @@ services:
     environment:
       APP_HOST: clinicos-integration_web_1
       APP_PORT: 3080
-      PROXY_AUTH_ADD: "false"
+      # Require an Umbrel session cookie on every request to port 3080.
+      # The setup wizard writes /app/config/.env (containing the API_TOKEN)
+      # and exposes /api/test-connection — both must be gated to authenticated
+      # operators. Without this, anyone on the LAN/VPN can reach the wizard
+      # and read or rotate creds. Defaults to "true" when unset; we keep it
+      # explicit so a future drive-by edit can't quietly disable it.
+      PROXY_AUTH_ADD: "true"
 
   web:
     image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/dicom-connector:1.1.3
