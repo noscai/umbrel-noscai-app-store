@@ -12,7 +12,7 @@ services:
       PROXY_AUTH_WHITELIST: "/api/commands/*,/api/discover"
 
   web:
-    image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/doctolib-twin:0.10.4
+    image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/doctolib-twin:0.10.5
     restart: unless-stopped
     stop_grace_period: 30s
     expose:
