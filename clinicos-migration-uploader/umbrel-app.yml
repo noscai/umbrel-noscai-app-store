@@ -1,0 +1,28 @@
+manifestVersion: 1
+id: clinicos-migration-uploader
+category: files
+name: ClinicOS Export Upload
+version: "0.1.0"
+tagline: Transfer one large export file securely to your ClinicOS practice
+icon: https://assets.clinicos.de/images/clinicos-icon.svg
+description: >-
+  Transfer a finished export file of up to 100 GB directly from this Umbrel
+  to your ClinicOS practice. Uploads resume after network interruptions and
+  device restarts. The original file stays on your device.
+
+  Your ClinicOS contact prepares a read-only export folder and issues an
+  upload authorization. Open the app, enter the code, verify the displayed
+  practice, select the finished file, and start. You may close the browser.
+  Received files are removed from the cloud intake after three days.
+  Receiving a file does not start a data import.
+releaseNotes: "Initial controlled pilot: resumable export transfers with receipt verification. Requires operator provisioning and backend enablement."
+developer: NoscAI
+website: https://clinicos.de
+dependencies: []
+repo: https://github.com/noscai/clinicos-edge
+support: https://github.com/noscai/clinicos-edge/issues
+port: 3083
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

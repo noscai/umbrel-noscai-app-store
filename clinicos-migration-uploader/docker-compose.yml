@@ -1,0 +1,32 @@
+services:
+  app_proxy:
+    environment:
+      APP_HOST: clinicos-migration-uploader_web_1
+      APP_PORT: 3083
+  web:
+    image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/migration-uploader:0.1.0
+    user: "1000:1000"
+    restart: unless-stopped
+    stop_grace_period: 70s
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    expose: ["3083"]
+    tmpfs: ["/tmp:size=16m,mode=1777"]
+    volumes:
+      - type: bind
+        source: ${APP_DATA_DIR}/data
+        target: /data
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${APP_MIGRATION_EXPORT_DIR:-${APP_DATA_DIR}/export}
+        target: /sources/export
+        read_only: true
+        bind:
+          create_host_path: false
+    environment:
+      CLINICOS_API_URL: https://api-backend.nosc.ai
+      MIGRATION_MAX_RATE: "10485760"
+      MIGRATION_ALLOWED_HOSTS: localhost,127.0.0.1,${DEVICE_DOMAIN_NAME},${DEVICE_HOSTNAME},clinicos-migration-uploader_web_1
+      MIGRATION_UI_ORIGINS: http://${DEVICE_DOMAIN_NAME}:3083,http://${DEVICE_HOSTNAME}:3083
