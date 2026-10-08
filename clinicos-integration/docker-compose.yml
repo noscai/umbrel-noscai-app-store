@@ -14,7 +14,7 @@ services:
       PROXY_AUTH_ADD: "true"
 
   web:
-    image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/dicom-connector:1.0.5
+    image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/dicom-connector:1.5.0
     user: "1000:1000"
     # Use 'always' so the container comes back after the setup wizard exits
     # cleanly post-save (sys.exit(0) — see Control Plane in dicom-connector README).
