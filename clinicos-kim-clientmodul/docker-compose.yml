@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: clinicos-kim-clientmodul_web_1
+      # noVNC: the kim+ desktop. The Umbrel login stays in front of it (PROXY_AUTH_ADD defaults to
+      # true); the page has no password of its own.
+      APP_PORT: 6080
+
+  web:
+    image: europe-west10-docker.pkg.dev/clinicos/clinicos-public/kim-clientmodul:0.1.0
+    user: "1000:1000"
+    restart: unless-stopped
+    stop_grace_period: 30s
+    ports:
+      # kim+'s POP3 and SMTP proxies (TLS), for easyTI and the practice's mail clients.
+      - "10110:10110"
+      - "10025:10025"
+    volumes:
+      # kim+ itself, its config (~/kimCm) and the keyring with its passwords.
+      - ${APP_DATA_DIR}/data:/data
+    environment:
+      # Unlocks the keyring. Must not change for the life of the app's data, and APP_SEED doesn't.
+      KEYRING_PASSWORD: ${APP_SEED}
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
