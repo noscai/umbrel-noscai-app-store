@@ -1,0 +1,34 @@
+manifestVersion: 1
+id: clinicos-kim-clientmodul
+category: networking
+name: ClinicOS KIM Clientmodul
+version: "0.1.0"
+tagline: Arvato kim+ KIM-Clientmodul for easyTI, set up in the browser
+icon: https://assets.clinicos.de/images/clinicos-icon.svg
+description: >-
+  Runs Arvato Systems' kim+ KIM-Clientmodul on this device, so the practice's
+  KIM mail (eArztbrief, eAU and other KIM messages) no longer depends on a
+  Windows or Mac PC being switched on. easyTI and mail clients connect to it
+  over POP3 (port 10110) and SMTP (port 10025). Both use TLS from the first
+  start, with the Clientmodul's own certificate.
+
+
+  The kim+ desktop opens in the browser behind the Umbrel login. Use its tray
+  menu (bottom right) for the Konnektor settings and the Adminmodul for the
+  KIM accounts.
+
+
+  On the first start the app downloads kim+ from Arvato (about 250 MB) and
+  checks it against a pinned checksum. kim+ works only with Arvato's KIM
+  service.
+releaseNotes: "First release: kim+ 1.5.5.21."
+developer: NoscAI
+website: https://clinicos.de
+dependencies: []
+repo: https://github.com/noscai/clinicos-edge
+support: https://github.com/noscai/clinicos-edge/issues
+port: 3083
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
