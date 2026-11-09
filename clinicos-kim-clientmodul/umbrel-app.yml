@@ -21,7 +21,7 @@ description: >-
   On the first start the app downloads kim+ from Arvato (about 250 MB) and
   checks it against a pinned checksum. kim+ works only with Arvato's KIM
   service.
-releaseNotes: "The kim+ desktop is now 1280x1024, so the save buttons in kim+'s settings are on screen."
+releaseNotes: "The kim+ desktop is now Full HD (1920x1080), so the save buttons in kim+'s settings are on screen."
 developer: NoscAI
 website: https://clinicos.de
 dependencies: []
