@@ -14,7 +14,8 @@ services:
     restart: unless-stopped
     stop_grace_period: 30s
     ports:
-      # kim+'s POP3 and SMTP proxies (TLS), for easyTI and the practice's mail clients.
+      # kim+'s POP3 and SMTP proxies for easyTI and the practice's mail clients. TLS is on from the first
+      # start (the image writes clientmodul.proxy.tls=TLS); kim+'s own default would be plain text.
       - "10110:10110"
       - "10025:10025"
     volumes:

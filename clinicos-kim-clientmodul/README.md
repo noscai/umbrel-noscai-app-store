@@ -12,8 +12,8 @@ provider's Clientmodul.
 | Port | What |
 |------|------|
 | 3083 | the kim+ desktop in the browser (Umbrel login in front) |
-| 10110 | POP3 proxy (TLS), for easyTI and mail clients |
-| 10025 | SMTP proxy (TLS), for easyTI and mail clients |
+| 10110 | POP3 proxy, TLS from the first start, for easyTI and mail clients |
+| 10025 | SMTP proxy, TLS from the first start, for easyTI and mail clients |
 
 ## First-time setup
 
@@ -22,10 +22,9 @@ provider's Clientmodul.
 2. Open the app. The kim+ desktop shows a tray icon at the bottom right.
 3. Tray icon → **Einstellungen → Konnektoren → Neuen Konnektor anlegen**: the practice Konnektor's host,
    Mandant, Clientsystem and Arbeitsplatz, and its client authentication.
-4. **Einstellungen → TLS**: switch on TLS for POP3 and SMTP (off out of the box; easyTI connects with TLS).
-5. Tray icon → **Adminmodul** opens Firefox inside the desktop. Accept the certificate warning once (kim+ uses
+4. Tray icon → **Adminmodul** opens Firefox inside the desktop. Accept the certificate warning once (kim+ uses
    its own certificate), then add the practice's KIM accounts.
-6. In easyTI, point the KIM clientmodule at this device's IP with ports 10110 / 10025, and upload this
+5. In easyTI, point the KIM clientmodule at this device's IP with ports 10110 / 10025, and upload this
    Clientmodul's TLS certificate (Einstellungen → TLS).
 
 ## Updating

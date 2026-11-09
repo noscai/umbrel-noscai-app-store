@@ -9,7 +9,8 @@ description: >-
   Runs Arvato Systems' kim+ KIM-Clientmodul on this device, so the practice's
   KIM mail (eArztbrief, eAU and other KIM messages) no longer depends on a
   Windows or Mac PC being switched on. easyTI and mail clients connect to it
-  over POP3 (port 10110) and SMTP (port 10025), both TLS.
+  over POP3 (port 10110) and SMTP (port 10025). Both use TLS from the first
+  start, with the Clientmodul's own certificate.
 
 
   The kim+ desktop opens in the browser behind the Umbrel login. Use its tray
