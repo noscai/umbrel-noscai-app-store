@@ -2,7 +2,7 @@ manifestVersion: 1
 id: clinicos-kim-clientmodul
 category: networking
 name: ClinicOS KIM Clientmodul
-version: "0.1.1"
+version: "0.1.2"
 tagline: Arvato kim+ KIM-Clientmodul for easyTI, set up in the browser
 icon: https://assets.clinicos.de/images/clinicos-icon.svg
 description: >-
@@ -21,7 +21,7 @@ description: >-
   On the first start the app downloads kim+ from Arvato (about 250 MB) and
   checks it against a pinned checksum. kim+ works only with Arvato's KIM
   service.
-releaseNotes: "POP3 and SMTP reachable from easyTI: TLS is now also set for a configuration made by 0.1.0, and kim+ binds its proxies to the network only with TLS."
+releaseNotes: "The kim+ desktop is now Full HD (1920x1080), so the save buttons in kim+'s settings are on screen."
 developer: NoscAI
 website: https://clinicos.de
 dependencies: []
